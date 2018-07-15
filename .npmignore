@@ -1,0 +1,9 @@
+src
+docs
+lib
+.babelrc
+.gitignore
+webpack.config.js
+.idea
+README.md
+.editorconfig
