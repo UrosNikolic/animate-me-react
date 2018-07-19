@@ -73,9 +73,7 @@ workflows:
   version: 2
   test-deploy:
     jobs:
-      - build:
-          docker:
-            <<: *defaults
+      - build
       - test:
           filters:
             tags:
