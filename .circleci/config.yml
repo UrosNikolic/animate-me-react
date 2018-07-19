@@ -1,7 +1,3 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2
 
 defaults: &defaults
@@ -11,9 +7,7 @@ defaults: &defaults
 
 jobs:
   build:
-    docker:
-      <<: *defaults
-
+    <<: *defaults
     steps:
       - checkout
 
@@ -68,21 +62,21 @@ jobs:
       - run:
           name: Publish package
           command: npm publish
-#
-#workflows:
-#  version: 2
-#  test-deploy:
-#    jobs:
-#      - build
-#      - test:
-#          filters:
-#            tags:
-#              only: /^v.*/
-#      - deploy:
-#          requires:
-#            - test
-#          filters:
-#            tags:
-#              only: /^v.*/
-#            branches:
-#              ignore: /.*/
+
+workflows:
+  version: 2
+  test-deploy:
+    jobs:
+      - build
+      - test:
+          filters:
+            tags:
+              only: /^v.*/
+      - deploy:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
