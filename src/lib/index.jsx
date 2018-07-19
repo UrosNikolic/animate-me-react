@@ -1,34 +1,37 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import {style} from 'typestyle'
+
+const className = style({color: 'red'});
 
 class AnimateMe extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             position: {},
             animatingStyles: {}
-        };
+        }
 
-        this.myRef = React.createRef();
-        this.onScroll = this.onScroll.bind(this);
-        this.addAnimatingStyles = this.addAnimatingStyles.bind(this);
+        this.myRef = React.createRef()
+        this.onScroll = this.onScroll.bind(this)
+        this.addAnimatingStyles = this.addAnimatingStyles.bind(this)
     }
 
-    isAnimated = false;
+    isAnimated = false
 
     componentDidMount() {
-        window.addEventListener('scroll', this.onScroll);
+        window.addEventListener('scroll', this.onScroll)
     }
 
     onScroll() {
         this.setState({
             position: this.myRef.current.getBoundingClientRect()
-        });
+        })
 
         if ((this.state.position.top < window.innerHeight) && !this.isAnimated) {
-            this.addAnimatingStyles();
-            this.isAnimated = true;
-            window.removeEventListener('scroll', this.onScroll);
+            this.addAnimatingStyles()
+            this.isAnimated = true
+            window.removeEventListener('scroll', this.onScroll)
         }
     }
 
@@ -46,14 +49,14 @@ class AnimateMe extends Component {
                 marginBottom: `${this.props.marginBottom}px`,
                 marginLeft: `${this.props.marginLeft}px`,
                 width: this.props.width,
-                height: this.props.height,
+                height: this.props.height
             }
         })
     }
 
     render() {
         return (
-            <div className='animation-wrapper' style={this.state.animatingStyles} ref={this.myRef}>
+            <div className={className} style={this.state.animatingStyles} ref={this.myRef}>
                 {this.props.children}
             </div>
         )
@@ -71,6 +74,6 @@ AnimateMe.propTypes = {
     marginLeft: PropTypes.string,
     width: PropTypes.string,
     height: PropTypes.string,
-};
+}
 
-export default AnimateMe;
+export default AnimateMe
