@@ -35,11 +35,14 @@ jobs:
 
       # run tests!
       - run: npm run test:coverage
-  dependencies:
-    pre:
-      - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-  deployment:
-    npm:
-      tag: /v[0-9]+(\.[0-9]+)*/
-          commands:
-        - npm publish
+  deploy:
+      <<: *defaults
+      steps:
+        - attach_workspace:
+            at: ~/repo
+        - run:
+            name: Authenticate with registry
+            command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
+        - run:
+            name: Publish package
+            command: npm publish
